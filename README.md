@@ -1,5 +1,43 @@
 # DmitriyBoon_microservices
 DmitriyBoon microservices repository
+
+# 15 Docker контейнеры. Docker под капотом
+- Установлен sdk
+```
+curl https://sdk.cloud.google.com | bash
+```
+```
+gcloud init
+Pick cloud project to use: 
+ [1] api-project-202822087289
+ [2] docker-233312
+ [3] infra-228011
+ [4] Create a new project
+Please enter numeric choice or text value (must exactly match list 
+item):  2
+
+Your current project has been set to: [docker-233312].
+```
+Вводим, переходим по ссылке в браузер.  С Lynx не удалось, ругалось на остуствие JS
+```
+gcloud auth application-default login
+```
+Експоритруем в окружение название проекта
+```
+export GOOGLE_PROJECT=docker-233312
+docker-machine create --driver google --google-machine-image https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts  --google-machine-type n1-standard-1 --google-zone europe-west1-b docker-host
+Running pre-create checks...
+(docker-host) Check that the project exists
+(docker-host) Check if the instance already exists
+Creating machine...
+(docker-host) Generating SSH Key
+(docker-host) Creating host...
+(docker-host) Opening firewall ports
+(docker-host) Creating instance
+(docker-host) Waiting for Instance
+(docker-host) Uploading SSH Key
+```
+
 #  14 Технология контейнеризации. Введение в Docker.
 - Установил Docker https://docs.docker.com/install/linux/docker-ce/ubuntu/
 ```
