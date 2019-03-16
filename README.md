@@ -1,5 +1,12 @@
 # DmitriyBoon_microservices
 DmitriyBoon microservices repository
+# 17 Сетевое взаимодействие Docker контейнеров. Docker Compose. Тестирование образов
+
+Имя образуется из каталога в котором лежит проект
+
+изменить можно так:
+.env добавлено окружение проекта
+container_name: "${COMPOSE_PROJECT_NAME}_db" 
 
 # 16 Docker образы. Микросервисы
 
