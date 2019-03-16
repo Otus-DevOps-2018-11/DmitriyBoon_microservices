@@ -1,6 +1,12 @@
 # DmitriyBoon_microservices
 DmitriyBoon microservices repository
 
+# 16 Docker образы. Микросервисы
+
+Согласно практического занятия развернуто, приложение.
+Найдена ошибка
+
+
 # 15 Docker контейнеры. Docker под капотом
 - Установлен sdk
 ```
