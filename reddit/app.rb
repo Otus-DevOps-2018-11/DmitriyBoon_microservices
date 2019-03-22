@@ -4,7 +4,7 @@ require 'haml'
 require 'uri'
 require 'mongo'
 require 'bcrypt'
-require './helpers.rb'
+require 'reddit/helpers.rb'
 
 
 configure do
