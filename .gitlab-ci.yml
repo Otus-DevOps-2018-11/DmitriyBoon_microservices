@@ -23,6 +23,8 @@ test_integration_job:
   stage: test
   services:
     - mongo:latest
+  before_script:
+    - gem install sinatra
   script:
     - ruby reddit/simpletest.rb 
     - echo 'Testing 2'
