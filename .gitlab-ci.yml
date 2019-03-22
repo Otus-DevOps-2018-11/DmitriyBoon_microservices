@@ -27,6 +27,7 @@ test_integration_job:
     - gem install sinatra
     - gem install haml
     - gem install mongo
+    - gem install bcrypt rack-test json puma
   script:
     - ruby reddit/simpletest.rb 
     - echo 'Testing 2'
