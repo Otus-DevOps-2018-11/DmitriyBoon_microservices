@@ -25,7 +25,7 @@ test_integration_job:
     - mongo:latest
   before_script:
     - gem install sinatra -v 2.0.1
-    - gem install bcrypt rack-test json puma mongo haml
+    - gem install bcrypt rack-test json puma mongo haml hanami-helpers
   script:
     - ruby reddit/simpletest.rb 
     - echo 'Testing 2'
