@@ -24,6 +24,7 @@ test_integration_job:
   services:
     - mongo:latest
   before_script:
+    - gem update
     - gem install sinatra -v 2.0.1
     - gem install bcrypt rack-test json puma mongo haml
   script:
