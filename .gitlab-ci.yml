@@ -26,6 +26,7 @@ test_integration_job:
   before_script:
     - gem install sinatra
     - gem install haml
+    - gem install mongo
   script:
     - ruby reddit/simpletest.rb 
     - echo 'Testing 2'
