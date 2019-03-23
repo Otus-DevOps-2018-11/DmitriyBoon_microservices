@@ -24,8 +24,11 @@ test_integration_job:
   services:
     - mongo:latest
   before_script:
-    - gem install sinatra -v 2.0.1
-    - gem install bcrypt rack-test json puma mongo haml hanami-helpers
+    - bundle install
+    - export SERVER_IP=127.0.0.1
+    - export REPO_NAME=root/reddit
+    - export DEPLOY_USER=appuser
+    - bundle exec cap production deploy:initial
   script:
     - ruby reddit/simpletest.rb 
     - echo 'Testing 2'
