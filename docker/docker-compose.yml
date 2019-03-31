@@ -25,6 +25,8 @@ services:
         tag: service.ui
   post:
     image: ${USERNAME}/post:${VER_POST}
+    ports:
+      - 5000:5000
     networks:
       backend-net:
         aliases:
