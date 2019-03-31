@@ -18,6 +18,11 @@ services:
     environment:
       - POST_SERVICE_HOST=${MS_POST_NAME}
       - COMMENT_SERVICE_HOST=${MS_COMMENT_NAME}
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.ui
   post:
     image: ${USERNAME}/post:${VER_POST}
     networks:
@@ -29,6 +34,11 @@ services:
           - ${MS_POST_NAME}
     environment:
       - POST_DATABASE_HOST=${DB_POST}
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.post
   comment:
     image: ${USERNAME}/comment:${VER_COMMENT}
     networks:
@@ -40,6 +50,11 @@ services:
           - ${MS_COMMENT_NAME}
     environment:
       - COMMENT_DATABASE_HOST=${DB_COMMENT}
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.comment
   prometheus:
     image: ${USERNAME}/prometheus:${VER_PROM}
     networks:

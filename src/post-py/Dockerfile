@@ -4,7 +4,7 @@ WORKDIR /app
 ADD . /app
 
 RUN apk upgrade --update
-RUN apk add gcc python3-dev linux-headers libc-dev 
+RUN apk add gcc python3-dev linux-headers libc-dev musl-dev 
 RUN pip install --upgrade pip
 RUN pip install -r /app/requirements.txt
  
