@@ -1,4 +1,5 @@
-FROM ruby:2.2
+FROM ruby:2.2-jessie
+RUN sed -i '/jessie-updates/d' /etc/apt/sources.list
 RUN apt-get update -qq && apt-get install -y build-essential
 
 ENV APP_HOME /app
@@ -13,3 +14,4 @@ ENV COMMENT_DATABASE_HOST comment_db
 ENV COMMENT_DATABASE comments
 
 CMD ["puma"]
+
