@@ -1,60 +1,106 @@
 version: '3.3'
 services:
   post_db:
-    image: mongo:3.2
-
+    image: mongo:${VER_MONGO}
     volumes:
       - post_db:/data/db
     networks:
-      labs:
+      backend-net:
         aliases:
-          - post_db
-          - comment_db
+          - ${DB_POST}
+          - ${DB_COMMENT}
   ui:
-    image: ${USERNAME}/ui:${UI_VER}
+    image: ${USERNAME}/ui:${VER_UI}
+    ports:
+      - ${APP_PORT}:9292/tcp
+    networks:
+      - frontend-net
     environment:
-      - POST_SERVICE_HOST=post
-      - POST_SERVICE_PORT=5000
-      - COMMENT_SERVICE_HOST=comment
-      - COMMENT_SERVICE_PORT=9292
-    depends_on:
-      - post
+      - POST_SERVICE_HOST=${MS_POST_NAME}
+      - COMMENT_SERVICE_HOST=${MS_COMMENT_NAME}
     logging:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
         tag: service.ui
-    ports:
-      - ${UI_PORT}:9292/tcp
-    networks:
-      labs:
   post:
-    image: ${USER_NAME}/post
+    image: ${USERNAME}/post:${VER_POST}
+
+    backend-net:
+        aliases:
+          - ${MS_POST_NAME}
+    frontend-net:
+        aliases:
+          - ${MS_POST_NAME}
     environment:
-      - POST_DATABASE_HOST=post_db
-      - POST_DATABASE=posts
-    depends_on:
-      - post_db
+      - POST_DATABASE_HOST=${DB_POST}
     ports:
-      - "5000:5000"
+      - 5000:5000
     logging:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
         tag: service.post
-    networks:
-      labs:
-        aliases:
-          - post
   comment:
-    image: ${USERNAME}/comment:${COMMENT_VER}
+    image: ${USERNAME}/comment:${VER_COMMENT}
     networks:
-      labs:
+      backend-net:
         aliases:
-          - comment
+          - ${MS_COMMENT_NAME}
+      frontend-net:
+        aliases:
+          - ${MS_COMMENT_NAME}
+    environment:
+      - COMMENT_DATABASE_HOST=${DB_COMMENT}
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.comment
+  prometheus:
+    image: ${USERNAME}/prometheus:${VER_PROM}
+    networks:
+      backend-net:
+        aliases:
+          - prometheus
+      frontend-net:
+        aliases:
+          - prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention=1d'
+  node-exporter:
+    image: prom/node-exporter:v0.15.2
+    networks:
+      backend-net:
+        aliases:
+          - node-exporter
+    user: root
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
 
 volumes:
   post_db:
-networks:
-  labs:
+  prometheus_data:
 
+networks:
+  frontend-net:
+    ipam:
+      config:
+        - subnet: 10.1.1.0/24
+  backend-net:
+    ipam:
+      config:
+        - subnet: 10.1.2.0/24
+        
