@@ -21,7 +21,7 @@ services:
     depends_on:
       - post
   post:
-    image: ${USERNAME}/post:${VER_POST}
+    image: dmitriyboon/post:latest
     ports:
       - 5000:5000
     depends_on:
