@@ -20,8 +20,10 @@ services:
       - COMMENT_SERVICE_HOST=${MS_COMMENT_NAME}
   post:
     image: ${USERNAME}/post:${VER_POST}
+    depends_on:
+      - post_db
     ports:
-      - 5000:5000
+      - '5000:5000'
     networks:
       backend-net:
         aliases:
