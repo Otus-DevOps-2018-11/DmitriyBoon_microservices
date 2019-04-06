@@ -30,5 +30,4 @@ services:
 volumes:
   post_db:
 
-networks:
-  reddit:
+
