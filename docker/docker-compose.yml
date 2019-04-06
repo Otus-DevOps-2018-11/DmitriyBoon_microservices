@@ -18,10 +18,14 @@ services:
     environment:
       - POST_SERVICE_HOST=${MS_POST_NAME}
       - COMMENT_SERVICE_HOST=${MS_COMMENT_NAME}
+    depends_on:
+      - post
   post:
-    image: ${USERNAME}/post:${VER_POST}
+    image: dmitriyboon/post:latest
     ports:
       - 5000:5000
+    depends_on:
+      - post_db
     networks:
       backend-net:
         aliases:
@@ -89,4 +93,3 @@ networks:
     ipam:
       config:
         - subnet: 10.1.2.0/24
-        
