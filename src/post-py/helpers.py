@@ -38,4 +38,3 @@ def log_event(event_type, name, message, params={}):
     elif event_type == 'error':
         log.error(name, service='post', request_id=request_id,
                   message=message, params=params)
-                  
