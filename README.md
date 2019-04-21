@@ -1,6 +1,25 @@
 # DmitriyBoon_microservices
 DmitriyBoon microservices repository
 
+# 19 Введение в мониторинг. Модели и принципы работы систем мониторинга
+
+https://hub.docker.com/u/dmitriyboon
+
+# 17 Сетевое взаимодействие Docker контейнеров. Docker Compose. Тестирование образов
+
+Имя образуется из каталога в котором лежит проект
+
+изменить можно так:
+.env добавлено окружение проекта
+container_name: "${COMPOSE_PROJECT_NAME}_db" 
+
+
+# 16 Docker образы. Микросервисы
+
+Согласно практического занятия развернуто, приложение.
+Найдена ошибка
+
+
 # 15 Docker контейнеры. Docker под капотом
 - Установлен sdk
 ```
