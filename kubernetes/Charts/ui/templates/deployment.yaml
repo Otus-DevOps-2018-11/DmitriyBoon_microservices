@@ -25,13 +25,11 @@ spec:
         release: {{ .Release.Name }}
     spec:
       containers:
-      - image: dmitriyboon/ui
-        name: ui
-        ports:
-        - containerPort: 9292
+        - image: "{{ .Values.image.repository }}/ui:{{ .Values.image.tag }}"
           name: ui
-          protocol: TCP
-        env:
+          ports:
+            - containerPort: {{ .Values.service.internalPort }} 
+      env:
         - name: ENV
           valueFrom:
             fieldRef:
